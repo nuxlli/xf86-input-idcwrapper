@@ -1,0 +1,38 @@
+xf86-input-idcwrapper é um driver para Xorg que estabelece uma base para o driver
+idctouch.
+
+O driver idctouch é originalmente proprietário, sendo assim seu código
+é fechado e até o momento não disponível para o público em geral. Por essa razão
+sua compatibilidade com o Xorg é restrita à algumas versões nas quais ele
+foi compilado.
+
+Para que o driver original possa ser usado, o xf86-input-idcwrapper adiciona uma
+pequena camada de compatibilidade com o Xorg permitindo assim carregar o drive original.
+
+Instalação
+------------------------------------------
+
+Baixe o wrapper em http://github.com/nuxlli/xf86-input-idcwrapper/tarball/master,
+extraia e execute:
+
+    $ ./autogen.sh
+    $ make
+    # make install
+
+Obs: O passo a seguir deve ser efetuado estando no X, pois o instalador é em
+modo gráfico.
+
+Para a instalação do driver proprietário, execute:
+
+    $ wget http://www.ideacom.com.tw/download/DRIVE/IDC6681-Ubuntu804-2.2.8.tar.gz
+    $ tar -zxvf IDC6681-Ubuntu804-2.2.8.tar.gz
+    $ cd usbps2
+    # ./setup (Escolha PS2 para aigo)
+    # cp idctouch_drv.so.x7_3 /usr/lib/xorg/modules/input/idctouch_drv.so
+
+Para terminar, edite o arquivo de configuração do xorg, normalmente /etc/X11/xorg.conf,
+e adicione na seção "Module": Load "idcwrapper", salve e reinicie o X.
+
+Se tudo estiver ok, execute o comando a seguir para calibrar o touch:
+
+    # /usr/local/IDC/calibration
